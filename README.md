@@ -48,24 +48,6 @@ Underlying physical formulations used for simulations and inversions.
 
 ---
 
-## 🔬 Scientific Workflow
-
-The methodology operates in two main phases:
-
-### Phase 1: Data Preparation & Physics Inversion
-Before training, we construct a dataset that bridges observations with physical theory.
-1.  **Regridding:** Satellite data (SMOS) and auxiliary models (TOPAZ, CMEMS) are spatially aligned using `indexs_regrid.py`.
-2.  **Map Generation:** `map_generation.py` iterates through these aligned grids. For each pixel, it:
-    * Derives microstructural parameters (`ellipsoids_perm.py`).
-    * Performs a **Burke Model Inversion** (`burke_model.py`) to determine what ice thickness *would* produce the observed SMOS Brightness Temperature given the current physical state.
-    * Stores this "physics-derived thickness" as the target variable for the machine learning model.
-
-### Phase 2: Machine Learning Training
-1.  **RF-eps (Altimetry Branch):** `rf-eps_training.py` uses SMRT simulations to learn the relationship between active Altimetry backscatter and sea ice permittivity. This allows the system to ingest CryoSat-2 data to constrain the dielectric properties.
-2.  **RF-sit (Radiometry Branch):** `rf-sit_training.py` trains the final thickness retrieval model. It learns to predict the thickness (derived in Phase 1) using the synergistic inputs of Radiometry ($T_B$) and the Permittivity derived from Phase 1.
-
----
-
 ### DISCLAIMER
 Ensure dependencies are installed. The SMRT model is required for the `rf-eps` simulation.
 Install SMRT: [https://github.com/smrt-model/smrt](https://github.com/smrt-model/smrt)
