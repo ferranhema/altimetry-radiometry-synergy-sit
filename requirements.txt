@@ -1,0 +1,8 @@
+numpy
+pandas
+scipy
+scikit-learn
+netCDF4
+tqdm
+# The SMRT model is also required. It usually requires manual installation, but if hosted on PyPI/git:
+# git+https://github.com/smrt-model/smrt.git
